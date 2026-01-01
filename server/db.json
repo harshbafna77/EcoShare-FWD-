@@ -14,6 +14,15 @@
       "email": "bafnaharsh425@gmail.com",
       "password": null,
       "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIM3iSaMi8_87bpkf_574DXYSSWcv6EPQ-WyxF-mV9q7DtO2iLW=s96-c",
+      "ecoPoints": 60,
+      "donatedPoints": 0
+    },
+    {
+      "id": "be95c05c-57bb-4143-beb0-8fe58f82bfad",
+      "name": "Panchami P",
+      "email": "panchamip.cs24@bmsce.ac.in",
+      "password": null,
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJX_kPmrVhfFjmbEMYVo_2FmQgijmI68_pn0RPgtCGimb-B_g=s96-c",
       "ecoPoints": 10,
       "donatedPoints": 0
     }
@@ -81,36 +90,13 @@
       "date": "2026-01-01T05:04:24.624Z"
     },
     {
-      "id": "e9b2174e-fa31-4cfa-a82b-7142c1f27e87",
-      "name": "Blroe",
-      "destination": "blorwrea",
-      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
-      "members": [
-        "be4bb859-9bdf-471f-8a1d-e3961accad84"
-      ],
-      "shareCode": "99098be8",
-      "expenses": [],
-      "date": "2026-01-01T05:16:17.312Z"
-    },
-    {
-      "id": "d9774013-a1b4-4e5a-99a9-4142fc88f445",
-      "name": "Blroe",
-      "destination": "blorwrea",
-      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
-      "members": [
-        "be4bb859-9bdf-471f-8a1d-e3961accad84"
-      ],
-      "shareCode": "b52e0d6f",
-      "expenses": [],
-      "date": "2026-01-01T05:16:20.156Z"
-    },
-    {
       "id": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
       "name": "Blroe",
       "destination": "blorwrea",
       "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
       "members": [
-        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
       ],
       "shareCode": "c4fc7664",
       "expenses": [],
@@ -153,5 +139,20 @@
       "date": "2026-01-01T05:16:20.763Z"
     }
   ],
-  "expenses": []
+  "expenses": [
+    {
+      "id": "11fb9839-9cf5-442e-8c0b-6f23c9cab150",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "description": "Bike Rental",
+      "amount": 500,
+      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+      ],
+      "date": "2026-01-01T05:41:48.052Z",
+      "isEcoFriendly": true,
+      "proofImageUrl": "http://localhost:3000/uploads/1767246108034-images.jpg",
+      "verification": null
+    }
+  ]
 }
