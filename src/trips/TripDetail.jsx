@@ -19,6 +19,8 @@ export default function TripDetail({ tripId }) {
     const [proofFile, setProofFile] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [verificationData, setVerificationData] = useState(null);
+    const [payerId, setPayerId] = useState('');
+    const [splitWith, setSplitWith] = useState([]);
 
     // Proof Viewer State
     const [viewingProof, setViewingProof] = useState(null);
@@ -33,7 +35,13 @@ export default function TripDetail({ tripId }) {
         setLoading(true);
         try {
             const tripRes = await fetch(`${API_URL}/trips/${tripId}`);
-            if (tripRes.ok) setTrip(await tripRes.json());
+            if (tripRes.ok) {
+                const tripData = await tripRes.json();
+                setTrip(tripData);
+                // Pre-fill payer and splitters when trip loads
+                if (payerId === '') setPayerId(user.id);
+                if (splitWith.length === 0) setSplitWith(tripData.members.map(m => m.id));
+            }
 
             const expRes = await fetch(`${API_URL}/expenses/${tripId}`);
             if (expRes.ok) setExpenses(await expRes.json());
@@ -107,8 +115,8 @@ export default function TripDetail({ tripId }) {
                     tripId,
                     description: desc,
                     amount,
-                    payerId: user.id,
-                    splitWith: allMemberIds,
+                    payerId: payerId || user.id,
+                    splitWith: splitWith.length > 0 ? splitWith : trip.members.map(m => m.id),
                     isEcoFriendly: isEco,
                     proofImageUrl: proofUrl,
                     verification: proofUrl ? verificationData : null
@@ -119,6 +127,16 @@ export default function TripDetail({ tripId }) {
                 setShowExpenseForm(false);
                 setDesc(''); setAmount(''); setIsManualEco(false); setProofFile(null);
                 fetchTripData(); // Refresh all
+            }
+        } catch (e) { console.error(e); }
+    };
+
+    const handleDeleteExpense = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this expense? Eco points awarded for this will also be reversed.")) return;
+        try {
+            const res = await fetch(`${API_URL}/expenses/${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                fetchTripData();
             }
         } catch (e) { console.error(e); }
     };
@@ -137,30 +155,30 @@ export default function TripDetail({ tripId }) {
                         <img src={viewingProof.proofImageUrl} alt="Proof" style={{ width: '100%', height: 'auto', display: 'block', borderBottom: '1px solid var(--glass-border)' }} />
 
                         <div style={{ padding: '1.5rem' }}>
-                            <h3 style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <h3 style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#ffffff', fontWeight: 'bold' }}>
                                 ✅ Verified Proof
                             </h3>
-                            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                            <p style={{ color: '#e2e8f0', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
                                 For: <strong>{viewingProof.description}</strong>
                             </p>
 
-                            <div className="meta-grid" style={{ display: 'grid', gap: '1rem', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+                            <div className="meta-grid" style={{ display: 'grid', gap: '1rem', background: 'rgba(255,255,255,0.08)', padding: '1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
                                 {viewingProof.verification?.timestamp && (
                                     <div className="meta-item">
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>🕒 Time Captured</div>
-                                        <div style={{ fontWeight: 'bold' }}>{new Date(viewingProof.verification.timestamp).toLocaleString()}</div>
+                                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>🕒 Time Captured</div>
+                                        <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '1rem' }}>{new Date(viewingProof.verification.timestamp).toLocaleString()}</div>
                                     </div>
                                 )}
 
                                 {viewingProof.verification?.location && (
                                     <div className="meta-item">
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>📍 Location</div>
+                                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>📍 Location</div>
                                         <a
                                             href={`https://www.google.com/maps?q=${viewingProof.verification.location.lat},${viewingProof.verification.location.lng}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             className="btn-link"
-                                            style={{ color: 'var(--primary-500)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.2rem' }}
+                                            style={{ color: 'var(--primary-500)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', fontWeight: 'bold', textDecoration: 'none' }}
                                         >
                                             View on Google Maps ↗
                                         </a>
@@ -220,9 +238,47 @@ export default function TripDetail({ tripId }) {
                             <div className="expense-form-card glass-panel" style={{ padding: '2rem', marginBottom: '2rem', border: '1px solid var(--primary-500)' }}>
                                 <form onSubmit={handleAddExpense}>
                                     <h3 style={{ marginBottom: '1rem' }}>Add New Expense</h3>
-                                    <div style={{ display: 'grid', gap: '1rem', marginBottom: '1.5rem' }}>
-                                        <input type="text" placeholder="Description (e.g. Dinner)" className="input" style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} value={desc} onChange={e => setDesc(e.target.value)} />
-                                        <input type="number" placeholder="Amount" className="input" style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} value={amount} onChange={e => setAmount(e.target.value)} />
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+                                        <div className="form-group">
+                                            <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Description</label>
+                                            <input type="text" placeholder="e.g. Dinner" className="input" style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} value={desc} onChange={e => setDesc(e.target.value)} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Amount</label>
+                                            <input type="number" placeholder="0.00" className="input" style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} value={amount} onChange={e => setAmount(e.target.value)} />
+                                        </div>
+                                    </div>
+
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <div className="payer-section">
+                                            <label style={{ display: 'block', fontSize: '0.9rem', color: 'var(--primary-500)', fontWeight: 'bold', marginBottom: '0.8rem' }}>👤 Paid By</label>
+                                            <select
+                                                className="input"
+                                                style={{ width: '100%', padding: '0.7rem', borderRadius: '0.5rem', background: 'var(--bg-dark)', border: '1px solid var(--primary-500)', color: 'white' }}
+                                                value={payerId}
+                                                onChange={e => setPayerId(e.target.value)}
+                                            >
+                                                {trip.members.map(m => <option key={m.id} value={m.id}>{m.name} {m.id === user.id ? '(You)' : ''}</option>)}
+                                            </select>
+                                        </div>
+                                        <div className="splitter-section">
+                                            <label style={{ display: 'block', fontSize: '0.9rem', color: 'var(--primary-500)', fontWeight: 'bold', marginBottom: '0.8rem' }}>🤝 Split With</label>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto' }}>
+                                                {trip.members.map(m => (
+                                                    <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.85rem' }}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={splitWith.includes(m.id)}
+                                                            onChange={e => {
+                                                                if (e.target.checked) setSplitWith([...splitWith, m.id]);
+                                                                else setSplitWith(splitWith.filter(id => id !== m.id));
+                                                            }}
+                                                        />
+                                                        {m.name}
+                                                    </label>
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div className="eco-toggle" style={{ marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -295,7 +351,16 @@ export default function TripDetail({ tripId }) {
                                                 )}
                                             </p>
                                         </div>
-                                        <div className="exp-amount" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>₹{exp.amount.toFixed(2)}</div>
+                                        <div className="exp-amount" style={{ fontSize: '1.2rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            ₹{exp.amount.toFixed(2)}
+                                            <button
+                                                onClick={() => handleDeleteExpense(exp.id)}
+                                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem', color: '#ff4d4f', opacity: 0.7, padding: '5px' }}
+                                                title="Delete Expense"
+                                            >
+                                                🗑️
+                                            </button>
+                                        </div>
                                     </li>
                                 );
                             })}

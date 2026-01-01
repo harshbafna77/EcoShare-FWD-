@@ -7,8 +7,14 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const path = require('path');
 
-const adapter = new FileSync('db.json');
+const adapter = new FileSync(path.join(__dirname, 'db.json'));
 const db = low(adapter);
+
+// Add db.read() to routes that need fresh data
+const refreshDb = (req, res, next) => {
+    db.read();
+    next();
+};
 
 // Defaults
 db.defaults({ users: [], trips: [], expenses: [] }).write();
@@ -247,6 +253,28 @@ app.get('/api/expenses/:tripId', (req, res) => {
     res.json(expenses);
 });
 
+app.delete('/api/expenses/:id', (req, res) => {
+    db.read(); // Ensure fresh data
+    const { id } = req.params;
+    const expense = db.get('expenses').find({ id }).value();
+
+    if (!expense) return res.status(404).json({ error: "Expense not found" });
+
+    // Deduct points if it was eco-friendly
+    if (expense.isEcoFriendly) {
+        const user = db.get('users').find({ id: expense.payerId }).value();
+        if (user) {
+            const currentPoints = user.ecoPoints || 0;
+            db.get('users').find({ id: expense.payerId })
+                .assign({ ecoPoints: Math.max(0, currentPoints - 50) })
+                .write();
+        }
+    }
+
+    db.get('expenses').remove({ id }).write();
+    res.json({ success: true });
+});
+
 // --- Settlement/Split Logic ---
 app.get('/api/trips/:id/summary', async (req, res) => {
     const tripId = req.params.id;
@@ -275,26 +303,20 @@ app.get('/api/trips/:id/summary', async (req, res) => {
         const paidBy = exp.payerId;
         const amount = exp.amount;
 
-        // Dynamic Split: Always split with ALL current trip members.
-        // This fixes issues where expenses added before a member joined wouldn't include them.
-        // It aligns with the UI "Paid for everyone".
-        let splitIds = trip.members.map(m => (typeof m === 'string' ? m : m.id));
+        // Selective Split: Use exp.splitWith if available, otherwise fallback to everyone.
+        let splitIds = exp.splitWith && exp.splitWith.length > 0
+            ? exp.splitWith
+            : trip.members.map(m => (typeof m === 'string' ? m : m.id));
 
         if (splitIds.length > 0) {
             const splitAmount = amount / splitIds.length;
 
-            // Payer gets + (Total - their share if they are in split)
-            // Actually simpler: Payer pays full amount.
-            // Everyone in split owes (Amount/N).
-            // So Payer Net Change = +Amount.
-            // Everyone in split Net Change = -SplitAmount.
-
-            if (!balances[paidBy]) balances[paidBy] = 0;
+            if (balances[paidBy] === undefined) balances[paidBy] = 0;
             balances[paidBy] += amount;
             console.log(`   > Payer (${paidBy}) +${amount} -> New Bal: ${balances[paidBy]}`);
 
             splitIds.forEach(uid => {
-                if (balances[uid] === undefined) balances[uid] = 0; // Ensure initialized
+                if (balances[uid] === undefined) balances[uid] = 0;
                 balances[uid] -= splitAmount;
                 console.log(`   > Splitter (${uid}) -${splitAmount} -> New Bal: ${balances[uid]}`);
             });

@@ -14,7 +14,7 @@
       "email": "bafnaharsh425@gmail.com",
       "password": null,
       "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIM3iSaMi8_87bpkf_574DXYSSWcv6EPQ-WyxF-mV9q7DtO2iLW=s96-c",
-      "ecoPoints": 60,
+      "ecoPoints": 210,
       "donatedPoints": 0
     },
     {
@@ -137,6 +137,18 @@
       "shareCode": "344d47ac",
       "expenses": [],
       "date": "2026-01-01T05:16:20.763Z"
+    },
+    {
+      "id": "ca54c9a8-3200-4037-832a-ed46854c823b",
+      "name": "Final Test Trip",
+      "destination": "Test City",
+      "creatorId": "ecbe0eb3-5421-462f-bca5-f12e7a3d67b4",
+      "members": [
+        "ecbe0eb3-5421-462f-bca5-f12e7a3d67b4"
+      ],
+      "shareCode": "70eaa49f",
+      "expenses": [],
+      "date": "2026-01-01T06:48:13.828Z"
     }
   ],
   "expenses": [
@@ -152,6 +164,63 @@
       "date": "2026-01-01T05:41:48.052Z",
       "isEcoFriendly": true,
       "proofImageUrl": "http://localhost:3000/uploads/1767246108034-images.jpg",
+      "verification": null
+    },
+    {
+      "id": "f913c4c7-c402-457a-8ffc-399baaea110a",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "description": "Cycle",
+      "amount": 10,
+      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
+      ],
+      "date": "2026-01-01T06:09:38.032Z",
+      "isEcoFriendly": true,
+      "proofImageUrl": "http://localhost:3000/uploads/1767247777940-proof.png",
+      "verification": {
+        "timestamp": "2026-01-01T06:09:14.277Z",
+        "location": {
+          "lat": 12.9407596,
+          "lng": 77.5655873
+        }
+      }
+    },
+    {
+      "id": "aedf6f8a-c52c-464e-a598-9f8cead0f3f0",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "description": "Bike rental",
+      "amount": 740,
+      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
+      ],
+      "date": "2026-01-01T06:12:35.862Z",
+      "isEcoFriendly": true,
+      "proofImageUrl": "http://localhost:3000/uploads/1767247955850-images.jpg",
+      "verification": {
+        "timestamp": "2026-01-01T06:12:33.669Z",
+        "location": {
+          "lat": 12.9407626,
+          "lng": 77.5655898
+        }
+      }
+    },
+    {
+      "id": "0c98f514-e432-411e-9b36-bf9790c58d5e",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "description": "Dinner",
+      "amount": 1213,
+      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
+      ],
+      "date": "2026-01-01T06:19:32.337Z",
+      "isEcoFriendly": true,
+      "proofImageUrl": "http://localhost:3000/uploads/1767248372280-1000174387 (1).jpg",
       "verification": null
     }
   ]

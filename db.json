@@ -5,7 +5,7 @@
       "name": "Harsh Bafna",
       "email": "bafnaharsh425@gmail.com",
       "password": "12345678",
-      "ecoPoints": 10,
+      "ecoPoints": 60,
       "donatedPoints": 0,
       "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIM3iSaMi8_87bpkf_574DXYSSWcv6EPQ-WyxF-mV9q7DtO2iLW=s96-c"
     },
@@ -31,6 +31,54 @@
       "shareCode": "d60d486c",
       "expenses": [],
       "date": "2025-12-31T19:07:35.788Z"
+    },
+    {
+      "id": "a154bb7f-0cc5-4e29-9178-69dd883c58fb",
+      "name": "Goa Trip",
+      "destination": "Goa",
+      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "members": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+      ],
+      "shareCode": "2da86cba",
+      "expenses": [],
+      "date": "2026-01-01T06:24:18.488Z"
+    },
+    {
+      "id": "c0cb54d2-c17a-4490-a862-cfdd2ca4da51",
+      "name": "Goa Trip",
+      "destination": "Goa",
+      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "members": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+      ],
+      "shareCode": "5e34e2f4",
+      "expenses": [],
+      "date": "2026-01-01T06:24:20.169Z"
+    },
+    {
+      "id": "10c388ce-340f-4def-8cd8-2d9dfaab5690",
+      "name": "Goa Trip",
+      "destination": "Goa",
+      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "members": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+      ],
+      "shareCode": "5aee6f31",
+      "expenses": [],
+      "date": "2026-01-01T06:24:21.848Z"
+    },
+    {
+      "id": "2d9cdf2d-8398-4d47-8225-3ba79ef602df",
+      "name": "Goa Trip",
+      "destination": "Goa",
+      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "members": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+      ],
+      "shareCode": "f13aea54",
+      "expenses": [],
+      "date": "2026-01-01T06:24:21.987Z"
     }
   ],
   "expenses": [
@@ -215,6 +263,27 @@
       "isEcoFriendly": true,
       "proofImageUrl": "http://localhost:3000/uploads/1767216818824-images.jpg",
       "verification": null
+    },
+    {
+      "id": "31d78227-986e-484c-976c-274eea9e877e",
+      "tripId": "01be1bd0-cf31-4743-844c-267b19a36f2d",
+      "description": "Bike rental",
+      "amount": 150,
+      "payerId": "4680445b-2b95-42cf-8ee7-4dc0c6897028",
+      "splitWith": [
+        "4680445b-2b95-42cf-8ee7-4dc0c6897028",
+        "ecbe0eb3-5421-462f-bca5-f12e7a3d67b4"
+      ],
+      "date": "2026-01-01T06:32:52.252Z",
+      "isEcoFriendly": true,
+      "proofImageUrl": "http://localhost:3000/uploads/1767249172167-images.jpg",
+      "verification": {
+        "timestamp": "2026-01-01T06:32:49.270Z",
+        "location": {
+          "lat": 12.9406195,
+          "lng": 77.5654919
+        }
+      }
     }
   ]
 }
