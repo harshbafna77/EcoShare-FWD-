@@ -12,14 +12,14 @@ export default function Navbar() {
     navigate('/');
   };
 
-  const navLinkClass = ({ isActive }) => 
+  const navLinkClass = ({ isActive }) =>
     `nav-item ${isActive ? 'active' : ''}`;
 
   return (
-    <nav className="glass-panel" style={{ 
-      position: 'sticky', 
-      top: '1rem', 
-      margin: '0 1.5rem', 
+    <nav className="glass-panel" style={{
+      position: 'sticky',
+      top: '1rem',
+      margin: '0 1.5rem',
       zIndex: 100,
       padding: '0.75rem 1.5rem',
       display: 'flex',
@@ -46,6 +46,8 @@ export default function Navbar() {
         ) : (
           <>
             <Link to="/" className="nav-item">Home</Link>
+            <Link to="/about" className="nav-item">About</Link>
+            <Link to="/contact" className="nav-item">Contact</Link>
             <Link to="/login" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem' }}>
               Get Started
             </Link>

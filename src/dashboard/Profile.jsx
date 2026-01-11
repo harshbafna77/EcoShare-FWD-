@@ -111,17 +111,40 @@ export default function Profile() {
                     <p className="impact-summary" style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>You're making a difference!</p>
                 </div>
 
-                <div className="dashboard-card glass-panel" style={{ padding: '1.5rem' }}>
+                <div className="dashboard-card glass-panel" style={{ padding: '1.5rem', position: 'relative' }}>
                     <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Next Goal 🎯</h3>
                     <div className="goal-progress">
                         <div className="goal-label" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-                            <span>Gold Supporter Badge</span>
-                            <span>{Math.min(user?.ecoPoints || 0, 450)} / 500 pts</span>
+                            <span style={{ fontWeight: '600' }}>Gold Supporter Badge</span>
+                            <span>{user?.ecoPoints || 0} / 500 pts</span>
                         </div>
-                        <div className="progress-bar" style={{ height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
-                            <div className="fill" style={{ width: `${Math.min((user?.ecoPoints || 0) / 500 * 100, 100)}%`, background: 'var(--accent-500)', height: '100%' }}></div>
+                        <div className="progress-bar" style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
+                            <div className="fill" style={{ width: `${Math.min((user?.ecoPoints || 0) / 500 * 100, 100)}%`, background: 'var(--primary-500)', height: '100%' }}></div>
                         </div>
-                        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>{Math.max(0, 500 - (user?.ecoPoints || 0))} more points to unlock!</p>
+                        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                            {user?.ecoPoints >= 500 ? "Goal achieved! Badge earned." : `${Math.max(0, 500 - (user?.ecoPoints || 0))} more points to unlock!`}
+                        </p>
+                    </div>
+
+                    <div className="reward-banner" style={{
+                        marginTop: '1.5rem',
+                        padding: '1rem',
+                        borderRadius: '0.75rem',
+                        background: 'linear-gradient(135deg, #FFF9EB 0%, #FFF1D6 100%)',
+                        border: '1px solid #FFE0A3',
+                        boxShadow: '0 2px 8px rgba(245, 158, 11, 0.1)'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '1.2rem' }}>🏆</span>
+                            <span style={{ fontWeight: 'bold', color: '#92400E', fontSize: '0.9rem' }}>WIN A FREE TRIP</span>
+                        </div>
+                        <p style={{ fontSize: '0.8rem', color: '#92400E', lineHeight: '1.4', margin: 0 }}>
+                            Gold Supporters get a chance to win a **free volunteered trip or hike**!
+                            In collaboration with
+                            <a href="https://volunteeryatra.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#D97706', fontWeight: 'bold', textDecoration: 'underline', marginLeft: '4px' }}>
+                                VolunteerYatra
+                            </a>.
+                        </p>
                     </div>
                 </div>
             </div>

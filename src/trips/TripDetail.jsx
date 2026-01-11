@@ -7,6 +7,7 @@ export default function TripDetail({ tripId }) {
     const [trip, setTrip] = useState(null);
     const [expenses, setExpenses] = useState([]);
     const [settlement, setSettlement] = useState(null);
+    const [settlements, setSettlements] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('expenses'); // expenses | settlement
     const [showExpenseForm, setShowExpenseForm] = useState(false);
@@ -51,6 +52,27 @@ export default function TripDetail({ tripId }) {
 
         } catch (e) { console.error(e); }
         setLoading(false);
+    };
+
+    const handleMarkAsPaid = async (debt) => {
+        if (!window.confirm(`Confirm that ${trip.members.find(m => m.id === debt.from)?.name} has paid ₹${debt.amount} to ${trip.members.find(m => m.id === debt.to)?.name}?`)) return;
+
+        try {
+            const res = await fetch(`${API_URL}/settlements`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tripId,
+                    fromUserId: debt.from,
+                    toUserId: debt.to,
+                    amount: debt.amount
+                })
+            });
+
+            if (res.ok) {
+                fetchTripData(); // Refresh to show updated balances
+            }
+        } catch (e) { console.error(e); }
     };
 
     const code = trip ? trip.shareCode : '';
@@ -394,13 +416,49 @@ export default function TripDetail({ tripId }) {
                                 const fromName = trip.members.find(m => m.id === d.from)?.name;
                                 const toName = trip.members.find(m => m.id === d.to)?.name;
                                 return (
-                                    <li key={i} className="debt-item glass-panel" style={{ padding: '1rem', marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
-                                        <span><strong>{fromName}</strong> pays <strong>{toName}</strong></span>
-                                        <span className="money" style={{ color: 'var(--primary-500)', fontWeight: 'bold' }}>₹{d.amount}</span>
+                                    <li key={i} className="debt-item glass-panel" style={{ padding: '1rem', marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <div>
+                                            <span><strong>{fromName}</strong> pays <strong>{toName}</strong></span>
+                                        </div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            <span className="money" style={{ color: 'var(--primary-500)', fontWeight: 'bold' }}>₹{d.amount}</span>
+                                            {(user.id === d.from || user.id === d.to) && (
+                                                <button
+                                                    onClick={() => handleMarkAsPaid(d)}
+                                                    className="btn btn-primary"
+                                                    style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
+                                                >
+                                                    ✓ Mark as Paid
+                                                </button>
+                                            )}
+                                        </div>
                                     </li>
                                 )
                             })}
                         </ul>
+
+                        {settlement.settlements && settlement.settlements.length > 0 && (
+                            <>
+                                <h3 style={{ marginTop: '2rem' }}>Payment History</h3>
+                                <ul className="settlement-history" style={{ listStyle: 'none' }}>
+                                    {settlement.settlements.map((s, i) => {
+                                        const fromName = trip.members.find(m => m.id === s.fromUserId)?.name;
+                                        const toName = trip.members.find(m => m.id === s.toUserId)?.name;
+                                        return (
+                                            <li key={i} className="glass-panel" style={{ padding: '1rem', marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', opacity: 0.7 }}>
+                                                <div>
+                                                    <span style={{ color: 'var(--accent)' }}>✓</span> <strong>{fromName}</strong> paid <strong>{toName}</strong>
+                                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+                                                        {new Date(s.date).toLocaleString()}
+                                                    </div>
+                                                </div>
+                                                <span className="money" style={{ color: 'var(--accent)', fontWeight: 'bold' }}>₹{s.amount.toFixed(2)}</span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

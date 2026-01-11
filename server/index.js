@@ -17,7 +17,7 @@ const refreshDb = (req, res, next) => {
 };
 
 // Defaults
-db.defaults({ users: [], trips: [], expenses: [] }).write();
+db.defaults({ users: [], trips: [], expenses: [], settlements: [] }).write();
 
 const app = express();
 app.use(cors());
@@ -105,10 +105,12 @@ app.post('/api/trips', (req, res) => {
         date: new Date().toISOString()
     };
     db.get('trips').push(trip).write();
+    res.json(trip);
 });
 
 // Get trips for a specific user
 app.get('/api/trips/user/:userId', (req, res) => {
+    db.read();
     const { userId } = req.params;
     // Find trips where members array contains an object with id == userId
     // Note: LowDB filter might need adjustment depending on how members are stored.
@@ -127,6 +129,7 @@ app.get('/api/trips/user/:userId', (req, res) => {
 });
 
 app.get('/api/trips/:id', (req, res) => {
+    db.read();
     const trip = db.get('trips').find({ id: req.params.id }).value();
     if (trip) {
         // Hydrate members
@@ -177,6 +180,7 @@ app.post('/api/trips/join', (req, res) => {
 
 // --- Leaderboard & Impact ---
 app.get('/api/leaderboard', (req, res) => {
+    db.read();
     // Return ALL users sorted by ecoPoints (no take() limit)
     const leaders = db.get('users')
         .orderBy(['ecoPoints'], ['desc'])
@@ -281,10 +285,12 @@ app.get('/api/trips/:id/summary', async (req, res) => {
     await db.read(); // Ensure fresh data
     const trip = db.get('trips').find({ id: tripId }).value();
     const expenses = db.get('expenses').filter(e => e.tripId === tripId).value();
+    const settlements = db.get('settlements').filter(s => s.tripId === tripId).value();
 
     console.log(`Summary for Trip ${tripId}:`); // Keep debug for now
     console.log(`Found Trip: ${trip ? trip.name : 'NULL'}`);
     console.log(`Found Expenses: ${expenses.length}`);
+    console.log(`Found Settlements: ${settlements.length}`);
     expenses.forEach(e => console.log(` - Exp: ${e.description}, Amount: ${e.amount}, Payer: ${e.payerId}`));
 
     // Calculate specific debts
@@ -323,6 +329,18 @@ app.get('/api/trips/:id/summary', async (req, res) => {
         }
     });
 
+    // Apply settlements (subtract already paid amounts)
+    settlements.forEach(settlement => {
+        const { fromUserId, toUserId, amount } = settlement;
+        if (balances[fromUserId] !== undefined) {
+            balances[fromUserId] += amount; // Debtor paid, so their balance increases
+        }
+        if (balances[toUserId] !== undefined) {
+            balances[toUserId] -= amount; // Creditor received, so their balance decreases
+        }
+        console.log(`   > Settlement: ${fromUserId} paid ${toUserId} ${amount}`);
+    });
+
     // Simplify Debts (Who pays whom)
     // This is a naive implementation
     const debts = [];
@@ -358,9 +376,38 @@ app.get('/api/trips/:id/summary', async (req, res) => {
         if (creditor.amount < 0.01) c++;
     }
 
-    res.json({ balances, debts });
+    res.json({ balances, debts, settlements });
 });
 
+// --- Settlement Routes ---
+// Record a settlement (when someone pays their debt)
+app.post('/api/settlements', (req, res) => {
+    const { tripId, fromUserId, toUserId, amount } = req.body;
+
+    if (!tripId || !fromUserId || !toUserId || !amount) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const settlement = {
+        id: uuidv4(),
+        tripId,
+        fromUserId,
+        toUserId,
+        amount: parseFloat(amount),
+        date: new Date().toISOString()
+    };
+
+    db.get('settlements').push(settlement).write();
+    res.json(settlement);
+});
+
+// Get settlements for a trip
+app.get('/api/settlements/:tripId', (req, res) => {
+    const settlements = db.get('settlements')
+        .filter({ tripId: req.params.tripId })
+        .value();
+    res.json(settlements);
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

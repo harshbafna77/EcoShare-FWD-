@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Landing from './landing/Landing';
 import Dashboard from './dashboard/Dashboard';
@@ -9,6 +9,8 @@ import TripDetail from './trips/TripDetail';
 import Leaderboard from './dashboard/Leaderboard';
 import Profile from './dashboard/Profile';
 import ImpactVisualizer from './sustainability/ImpactVisualizer';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import { useAuth } from './context/AuthContext';
 
 function ProtectedRoute({ children }) {
@@ -25,6 +27,8 @@ function App() {
         <main style={{ marginTop: '2rem', minHeight: '80vh' }}>
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<LoginWrapper />} />
 
             <Route path="/dashboard" element={
@@ -44,13 +48,45 @@ function App() {
         </main>
 
         <footer style={{
-          marginTop: '4rem',
-          padding: '2rem',
-          textAlign: 'center',
-          color: 'var(--text-muted)',
-          borderTop: '1px solid var(--glass-border)'
+          marginTop: '6rem',
+          padding: '4rem 2rem',
+          backgroundColor: '#fff',
+          borderTop: '1px solid var(--border)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2rem'
         }}>
-          <p>&copy; 2025 EcoShare. Travel sustainably.</p>
+          <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ flex: '1', minWidth: '200px', textAlign: 'center' }}>
+              <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontWeight: 'bold', justifyContent: 'center', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '1.5rem' }}>🌿</span>
+                <span className="text-gradient">EcoShare</span>
+              </div>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Making global travel sustainable and collaborative for everyone.</p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '4rem' }}>
+              <div>
+                <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Platform</h4>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <li><Link to="/" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Home</Link></li>
+                  <li><Link to="/about" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>About Us</Link></li>
+                  <li><Link to="/contact" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Contact</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Legal</h4>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <li><span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', cursor: 'pointer' }}>Privacy Policy</span></li>
+                  <li><span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', cursor: 'pointer' }}>Terms of Service</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style={{ borderTop: '1px solid var(--border)', width: '100%', maxWidth: '800px', paddingTop: '2rem', textAlign: 'center' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>&copy; 2025 EcoShare. All rights reserved. Travel sustainably.</p>
+          </div>
         </footer>
       </div>
     </BrowserRouter>

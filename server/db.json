@@ -14,7 +14,7 @@
       "email": "bafnaharsh425@gmail.com",
       "password": null,
       "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIM3iSaMi8_87bpkf_574DXYSSWcv6EPQ-WyxF-mV9q7DtO2iLW=s96-c",
-      "ecoPoints": 160,
+      "ecoPoints": 110,
       "donatedPoints": 0
     },
     {
@@ -23,6 +23,30 @@
       "email": "panchamip.cs24@bmsce.ac.in",
       "password": null,
       "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJX_kPmrVhfFjmbEMYVo_2FmQgijmI68_pn0RPgtCGimb-B_g=s96-c",
+      "ecoPoints": 10,
+      "donatedPoints": 0
+    },
+    {
+      "id": "3acdf570-ff05-4457-96f9-b33de604be45",
+      "name": "John",
+      "email": "john123@gmail.com",
+      "password": "12345678",
+      "ecoPoints": 60,
+      "donatedPoints": 0
+    },
+    {
+      "id": "a4aa9988-e0d2-4dca-9933-16a548367b38",
+      "name": "xyz",
+      "email": "xyz@gmail.com",
+      "password": "12345678",
+      "ecoPoints": 10,
+      "donatedPoints": 0
+    },
+    {
+      "id": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "name": "Johnny",
+      "email": "johnny123@gmail.com",
+      "password": "12345678",
       "ecoPoints": 10,
       "donatedPoints": 0
     }
@@ -77,19 +101,6 @@
       "date": "2026-01-01T05:04:24.405Z"
     },
     {
-      "id": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
-      "name": "Blroe",
-      "destination": "blorwrea",
-      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
-      "members": [
-        "be4bb859-9bdf-471f-8a1d-e3961accad84",
-        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
-      ],
-      "shareCode": "c4fc7664",
-      "expenses": [],
-      "date": "2026-01-01T05:16:20.313Z"
-    },
-    {
       "id": "ca54c9a8-3200-4037-832a-ed46854c823b",
       "name": "Final Test Trip",
       "destination": "Test City",
@@ -100,64 +111,387 @@
       "shareCode": "70eaa49f",
       "expenses": [],
       "date": "2026-01-01T06:48:13.828Z"
+    },
+    {
+      "id": "6b69b5de-5330-408e-9831-bfccf8761908",
+      "name": "goa 2025",
+      "destination": "goa",
+      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "members": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "3acdf570-ff05-4457-96f9-b33de604be45"
+      ],
+      "shareCode": "892274ef",
+      "expenses": [],
+      "date": "2026-01-01T10:03:25.403Z"
+    },
+    {
+      "id": "0ca56b1a-cc3c-4ceb-a1f9-84db11b428d8",
+      "name": "Bangalore",
+      "destination": "Bangalore",
+      "creatorId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "members": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84"
+      ],
+      "shareCode": "6b9ef084",
+      "expenses": [],
+      "date": "2026-01-11T05:14:43.106Z"
+    },
+    {
+      "id": "a614363a-b1ee-411c-914c-c60728bf3ec4",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "a2a5b827",
+      "expenses": [],
+      "date": "2026-01-11T05:48:47.421Z"
+    },
+    {
+      "id": "22092cb7-5f16-46c7-9b80-87dce6ff1591",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "7538aadb",
+      "expenses": [],
+      "date": "2026-01-11T05:49:16.420Z"
+    },
+    {
+      "id": "0035cea2-5465-4dc3-8377-fb94551e5312",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "558434f8",
+      "expenses": [],
+      "date": "2026-01-11T05:49:24.980Z"
+    },
+    {
+      "id": "611eed9c-5aeb-4386-bce8-a272583a1956",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "b53de68a",
+      "expenses": [],
+      "date": "2026-01-11T05:49:54.551Z"
+    },
+    {
+      "id": "5a0f28c9-eedc-427d-bff5-aefd7dd3da7f",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "766660aa",
+      "expenses": [],
+      "date": "2026-01-11T06:02:16.766Z"
+    },
+    {
+      "id": "ed59eefa-3a01-46a5-9f0b-94fa9bc42b3a",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "65eae1b6",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.812Z"
+    },
+    {
+      "id": "128bccd0-8b54-4c50-be24-69703bdf2b28",
+      "name": "Goa ",
+      "destination": "Goa",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "7e92baeb",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.821Z"
+    },
+    {
+      "id": "2bea27e9-85d2-4dcd-98da-bfecf4232669",
+      "name": "Goa ",
+      "destination": "Goa",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "26916846",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.824Z"
+    },
+    {
+      "id": "b64b67af-4cd9-453f-b699-c4baf35eb8ba",
+      "name": "Goa ",
+      "destination": "Goa",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "eef7cd24",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.827Z"
+    },
+    {
+      "id": "fe6b885a-8601-4849-9375-f0e38976f7b1",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "6e9c9d56",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.903Z"
+    },
+    {
+      "id": "48c5cac6-5ff2-4f11-9a17-373981c39f04",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "4ea4310c",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.910Z"
+    },
+    {
+      "id": "f7960eea-50cc-430f-a7af-3391e44e1691",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "3754070d",
+      "expenses": [],
+      "date": "2026-01-11T06:21:33.915Z"
+    },
+    {
+      "id": "0022acac-9dfb-4b14-a329-a8eb6390710a",
+      "name": "",
+      "destination": "",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "4ee02f7c",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.142Z"
+    },
+    {
+      "id": "a1bff772-f0c7-445f-a0a7-d17d563b8258",
+      "name": "Paris 2026",
+      "destination": "Paris",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "bc22f9d1",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.146Z"
+    },
+    {
+      "id": "d991ded5-b0dc-4a69-b979-0fa4915d0a83",
+      "name": "Paris 2026",
+      "destination": "Paris",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "12ec4b07",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.151Z"
+    },
+    {
+      "id": "a6ff513e-389f-4cce-bfcf-e509a3199c53",
+      "name": "Paris 2026",
+      "destination": "Paris",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "2f04b607",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.425Z"
+    },
+    {
+      "id": "c7cf4d11-ae0b-440a-b03a-9846a50c214e",
+      "name": "Paris 2026Paris 2026",
+      "destination": "Paris",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "3b55d464",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.429Z"
+    },
+    {
+      "id": "ce506594-1294-47fa-8b27-3902ae5d6d2b",
+      "name": "Goa",
+      "destination": "Goa",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "8a6061f8",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.432Z"
+    },
+    {
+      "id": "b93c4cc4-3b36-41ef-990c-4473a8faa15a",
+      "name": "Paris 2026",
+      "destination": "Paris",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "63db8a42",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.434Z"
+    },
+    {
+      "id": "00587399-8fb9-4c77-855d-7109d407a575",
+      "name": "Paris 2026",
+      "destination": "Paris",
+      "creatorId": "af611134-bd29-431c-b53b-e4fab42c1ef1",
+      "members": [
+        "af611134-bd29-431c-b53b-e4fab42c1ef1"
+      ],
+      "shareCode": "4a051f21",
+      "expenses": [],
+      "date": "2026-01-11T06:21:34.436Z"
     }
   ],
   "expenses": [
     {
-      "id": "11fb9839-9cf5-442e-8c0b-6f23c9cab150",
+      "id": "c17fec8c-5d95-43b3-852e-470342b82466",
       "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
-      "description": "Bike Rental",
-      "amount": 500,
-      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
-      "splitWith": [
-        "be4bb859-9bdf-471f-8a1d-e3961accad84"
-      ],
-      "date": "2026-01-01T05:41:48.052Z",
-      "isEcoFriendly": true,
-      "proofImageUrl": "http://localhost:3000/uploads/1767246108034-images.jpg",
-      "verification": null
-    },
-    {
-      "id": "f913c4c7-c402-457a-8ffc-399baaea110a",
-      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
-      "description": "Cycle",
-      "amount": 10,
+      "description": "Dinner",
+      "amount": 300,
       "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
       "splitWith": [
         "be4bb859-9bdf-471f-8a1d-e3961accad84",
-        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad",
+        "29445377-dd89-4570-bd84-a507dbb42bae"
       ],
-      "date": "2026-01-01T06:09:38.032Z",
+      "date": "2026-01-01T08:35:17.648Z",
+      "isEcoFriendly": false,
+      "proofImageUrl": null,
+      "verification": null
+    },
+    {
+      "id": "eb0ed79a-95ef-48dc-8fbc-db65cf811209",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "description": "dinner",
+      "amount": 200,
+      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "29445377-dd89-4570-bd84-a507dbb42bae"
+      ],
+      "date": "2026-01-01T09:15:06.070Z",
+      "isEcoFriendly": false,
+      "proofImageUrl": null,
+      "verification": null
+    },
+    {
+      "id": "b5412b97-dbcd-458c-80af-f346841a0d72",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "description": "Bike rental",
+      "amount": 500,
+      "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad",
+        "29445377-dd89-4570-bd84-a507dbb42bae"
+      ],
+      "date": "2026-01-01T09:40:01.507Z",
       "isEcoFriendly": true,
-      "proofImageUrl": "http://localhost:3000/uploads/1767247777940-proof.png",
+      "proofImageUrl": "http://localhost:3000/uploads/1767260401485-images.jpg",
       "verification": {
-        "timestamp": "2026-01-01T06:09:14.277Z",
+        "timestamp": "2026-01-01T09:40:00.307Z",
         "location": {
-          "lat": 12.9407596,
-          "lng": 77.5655873
+          "lat": 12.9564672,
+          "lng": 77.6208384
         }
       }
     },
     {
-      "id": "5cde07f7-a5f2-495d-9e00-41e6761e2a3e",
+      "id": "e35cda62-e19b-4217-8c1b-ae0d7f36532c",
       "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
-      "description": "Bike rentals",
+      "description": "Bike rental",
       "amount": 400,
       "payerId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
       "splitWith": [
         "be4bb859-9bdf-471f-8a1d-e3961accad84",
-        "be95c05c-57bb-4143-beb0-8fe58f82bfad"
+        "be95c05c-57bb-4143-beb0-8fe58f82bfad",
+        "29445377-dd89-4570-bd84-a507dbb42bae"
       ],
-      "date": "2026-01-01T07:34:17.798Z",
+      "date": "2026-01-01T09:49:44.041Z",
       "isEcoFriendly": true,
-      "proofImageUrl": "http://localhost:3000/uploads/1767252857779-images.jpg",
+      "proofImageUrl": "http://localhost:3000/uploads/1767260984030-images.jpg",
       "verification": {
-        "timestamp": "2026-01-01T07:34:16.411Z",
+        "timestamp": "2026-01-01T09:49:42.624Z",
         "location": {
-          "lat": 12.940524,
-          "lng": 77.5597813
+          "lat": 12.9564672,
+          "lng": 77.6208384
         }
       }
+    },
+    {
+      "id": "d3cdff6f-b91c-43ae-9447-dd8f007d4423",
+      "tripId": "6b69b5de-5330-408e-9831-bfccf8761908",
+      "description": "Bike Rental",
+      "amount": 200,
+      "payerId": "3acdf570-ff05-4457-96f9-b33de604be45",
+      "splitWith": [
+        "be4bb859-9bdf-471f-8a1d-e3961accad84",
+        "3acdf570-ff05-4457-96f9-b33de604be45"
+      ],
+      "date": "2026-01-01T10:05:57.283Z",
+      "isEcoFriendly": true,
+      "proofImageUrl": "http://localhost:3000/uploads/1767261957270-images.jpg",
+      "verification": {
+        "timestamp": "2026-01-01T10:05:55.825Z",
+        "location": {
+          "lat": 12.9564672,
+          "lng": 77.6208384
+        }
+      }
+    }
+  ],
+  "settlements": [
+    {
+      "id": "39299544-0d76-4544-8a0e-68bf430d23d2",
+      "tripId": "d65cd9cb-7299-4a05-9567-9128059e0d5b",
+      "fromUserId": "be95c05c-57bb-4143-beb0-8fe58f82bfad",
+      "toUserId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "amount": 100,
+      "date": "2026-01-01T09:18:02.573Z"
+    },
+    {
+      "id": "ee1e6c73-525b-4a78-8b2b-5e4c3e2a89b1",
+      "tripId": "6b69b5de-5330-408e-9831-bfccf8761908",
+      "fromUserId": "be4bb859-9bdf-471f-8a1d-e3961accad84",
+      "toUserId": "3acdf570-ff05-4457-96f9-b33de604be45",
+      "amount": 100,
+      "date": "2026-01-01T10:06:50.017Z"
     }
   ]
 }

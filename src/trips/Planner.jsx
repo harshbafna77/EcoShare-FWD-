@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Planner.css';
 
@@ -13,6 +13,7 @@ export default function Planner({ onSelectTrip }) {
     const [joinCode, setJoinCode] = useState('');
 
     const { user } = useAuth();
+    const navigate = useNavigate();
     const API_URL = 'http://localhost:3000/api';
 
     useEffect(() => {
@@ -68,19 +69,29 @@ export default function Planner({ onSelectTrip }) {
 
     const handleDeleteTrip = async (e, tripId) => {
         e.preventDefault();
-        e.stopPropagation(); // Stop the click from bubbling to the parent Link
-        if (!confirm('Are you sure you want to delete this trip? This cannot be undone.')) return;
+        e.stopPropagation();
+
+        if (!window.confirm('Are you sure you want to delete this trip? This action cannot be undone.')) return;
 
         try {
+            console.log('Sending delete request for:', tripId);
             const res = await fetch(`${API_URL}/trips/${tripId}`, {
                 method: 'DELETE',
             });
+
             if (res.ok) {
-                setTrips(trips.filter(t => t.id !== tripId));
+                console.log('Delete successful on server');
+                // Use functional update to ensure we have the latest state
+                setTrips(prevTrips => prevTrips.filter(t => t.id !== tripId));
             } else {
-                alert('Failed to delete trip');
+                const error = await res.json();
+                console.error('Delete failed:', error);
+                alert('Failed to delete trip: ' + (error.error || 'Server error'));
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error('Network error during delete:', e);
+            alert('Could not connect to the server to delete the trip.');
+        }
     };
 
     return (
@@ -94,27 +105,86 @@ export default function Planner({ onSelectTrip }) {
 
                     <div className="planner-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
                         {trips.map(trip => (
-                            <Link to={`/dashboard/trips/${trip.id}`} key={trip.id} className="trip-card glass-panel" style={{ display: 'block', padding: '0', overflow: 'hidden', transition: 'transform 0.2s', position: 'relative' }}>
-                                <div className="trip-image-placeholder" style={{ height: '140px', background: '#228b22', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                                    <span>{trip.destination || trip.name}</span>
-                                </div>
-                                <div className="trip-details" style={{ padding: '1.5rem' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                        <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-main)' }}>{trip.name}</h3>
-                                        <button
-                                            onClick={(e) => handleDeleteTrip(e, trip.id)}
-                                            style={{ color: '#ef4444', padding: '4px', opacity: 0.8, background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}
-                                            title="Delete Trip"
-                                        >
-                                            🗑️
-                                        </button>
+                            <div
+                                key={trip.id}
+                                className="trip-card glass-panel"
+                                style={{
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    transition: 'transform 0.2s, box-shadow 0.2s',
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }}
+                            >
+                                {/* Delete Action - High Z-Index Overlay */}
+                                <button
+                                    onClick={(e) => handleDeleteTrip(e, trip.id)}
+                                    title="Delete Trip"
+                                    style={{
+                                        position: 'absolute',
+                                        top: '0.75rem',
+                                        right: '0.75rem',
+                                        zIndex: 30,
+                                        width: '36px',
+                                        height: '36px',
+                                        borderRadius: '50%',
+                                        background: 'rgba(255, 255, 255, 0.9)',
+                                        border: '1px solid #fee2e2',
+                                        color: '#ef4444',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                        fontSize: '1.1rem'
+                                    }}
+                                    onMouseOver={(e) => {
+                                        e.currentTarget.style.background = '#fee2e2';
+                                        e.currentTarget.style.transform = 'scale(1.1)';
+                                    }}
+                                    onMouseOut={(e) => {
+                                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                    }}
+                                >
+                                    🗑️
+                                </button>
+
+                                {/* Main Card Link (Using clickable div for better event control) */}
+                                <div
+                                    onClick={() => navigate(`/dashboard/trips/${trip.id}`)}
+                                    style={{ cursor: 'pointer', flex: 1 }}
+                                >
+                                    <div className="trip-image-placeholder" style={{
+                                        height: '140px',
+                                        background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'white',
+                                        fontSize: '1.25rem',
+                                        fontWeight: 'bold',
+                                        padding: '1rem',
+                                        textAlign: 'center'
+                                    }}>
+                                        <span>{trip.destination || trip.name}</span>
                                     </div>
-                                    <div className="trip-meta" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                                        <span className="badge" style={{ background: 'var(--primary)', color: 'var(--text-inverse)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.8rem' }}>Active</span>
-                                        <span className="participants">👥 {trip.members.length}</span>
+                                    <div className="trip-details" style={{ padding: '1.25rem' }}>
+                                        <h3 style={{ margin: '0 0 0.75rem 0', color: 'var(--text-main)', fontSize: '1.15rem' }}>{trip.name}</h3>
+                                        <div className="trip-meta" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                                            <span className="badge" style={{
+                                                background: '#ecfdf5',
+                                                color: '#059669',
+                                                padding: '0.25rem 0.6rem',
+                                                borderRadius: '999px',
+                                                fontWeight: '600',
+                                                border: '1px solid #d1fae5'
+                                            }}>Active</span>
+                                            <span className="participants" style={{ fontWeight: '500' }}>👥 {trip.members.length} members</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
                         ))}
 
                         {trips.length === 0 && (
